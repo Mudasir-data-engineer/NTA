@@ -2,9 +2,8 @@
 FROM maven:3.9.5-eclipse-temurin-17 AS build
 WORKDIR /workspace
 
-# copy pom.xml and Maven wrapper files (if you have them)
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
+# copy only pom.xml
+COPY pom.xml ./
 
 # download dependencies
 RUN mvn -B -q dependency:go-offline
