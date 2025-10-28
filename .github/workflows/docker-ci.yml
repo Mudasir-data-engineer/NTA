@@ -1,6 +1,5 @@
-name: Docker CI (build only)
+name: Docker CI (build + push)
 
-# Run this on push and pull requests to main (adjust branch if needed)
 on:
   push:
     branches: [ main ]
@@ -11,41 +10,44 @@ permissions:
   contents: read
 
 jobs:
-  build-images:
-    name: Build frontend & backend Docker images
+  build-and-push:
+    name: Build & Push Frontend + Backend Docker Images
     runs-on: ubuntu-latest
+
     steps:
+      # 1️⃣ Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up QEMU (for multi-platform builds, safe to run)
+      # 2️⃣ Setup QEMU for multi-platform builds
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
+      # 3️⃣ Setup Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build frontend image (no push)
+      # 4️⃣ Login to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 5️⃣ Build & Push Frontend
+      - name: Build & Push Frontend Image
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           file: ./frontend/Dockerfile
-          push: false
-          tags: nta-frontend:ci
-          # optional: adjust platforms if you need multi-arch
-          # platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nta-frontend:latest
 
-      - name: Build backend image (no push)
+      # 6️⃣ Build & Push Backend
+      - name: Build & Push Backend Image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           file: ./backend/Dockerfile
-          push: false
-          tags: nta-backend:ci
-
-      - name: Upload build logs/artifacts (optional)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: |
-            /github/workflow/event.json
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nta-backend:latest
