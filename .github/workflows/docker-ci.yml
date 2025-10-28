@@ -33,7 +33,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.chmudasir007 }}
-          password: ${{ secrets.Islamabad@007 }}
+          password: ${{ secrets.Mudasir745 }}
 
       # 5️⃣ Build & Push Frontend
       - name: Build & Push Frontend Image
