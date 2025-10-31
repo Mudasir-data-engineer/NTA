@@ -12,7 +12,7 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    name: Build & Push Frontend + Backend Docker Images
+    name: Build, Push & Update Containers
 
     steps:
       - name: Checkout repository
@@ -44,5 +44,22 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-
           tags: chmudasir007/nta-backend:latest
+
+      - name: Stop existing frontend container
+        run: docker stop nta-frontend-1 || true
+
+      - name: Remove existing frontend container
+        run: docker rm nta-frontend-1 || true
+
+      - name: Run updated frontend container
+        run: docker run -d --name nta-frontend-1 -p 5173:80 chmudasir007/nta-frontend:latest
+
+      - name: Stop existing backend container
+        run: docker stop nta-backend-1 || true
+
+      - name: Remove existing backend container
+        run: docker rm nta-backend-1 || true
+
+      - name: Run updated backend container
+        run: docker run -d --name nta-backend-1 -p 8080:8080 chmudasir007/nta-backend:latest
