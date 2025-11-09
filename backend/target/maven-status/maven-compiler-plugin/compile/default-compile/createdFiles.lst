@@ -1,2 +1,5 @@
-com/example/nta/StatusController.class
-com/example/nta/NTAApplication.class
+com/nta/NTAApplication.class
+com/nta/repository/ServiceRepository.class
+com/nta/model/ServiceEntity.class
+com/nta/controller/StatusController.class
+com/nta/controller/ServiceController.class

@@ -1,0 +1,8 @@
+CREATE TABLE services (
+  id SERIAL PRIMARY KEY,
+  category VARCHAR(100) NOT NULL,
+  title VARCHAR(150) NOT NULL,
+  description TEXT,
+  icon VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

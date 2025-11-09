@@ -1,2 +1,5 @@
-/home/hp/projects/NTA/backend/src/main/java/com/example/nta/StatusController.java
-/home/hp/projects/NTA/backend/src/main/java/com/example/nta/NTAApplication.java
+/home/hp/projects/NTA/backend/src/main/java/com/nta/controller/ServiceController.java
+/home/hp/projects/NTA/backend/src/main/java/com/nta/model/ServiceEntity.java
+/home/hp/projects/NTA/backend/src/main/java/com/nta/controller/StatusController.java
+/home/hp/projects/NTA/backend/src/main/java/com/nta/repository/ServiceRepository.java
+/home/hp/projects/NTA/backend/src/main/java/com/NTAApplication.java
