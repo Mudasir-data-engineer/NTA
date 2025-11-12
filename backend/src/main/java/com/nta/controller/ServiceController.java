@@ -25,17 +25,17 @@ public class ServiceController {
     }
 
     @PutMapping("/{id}")
-public ServiceEntity updateService(@PathVariable Long id, @RequestBody ServiceEntity serviceDetails) {
-    ServiceEntity service = serviceRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Service not found with id " + id));
+    public ServiceEntity updateService(@PathVariable Long id, @RequestBody ServiceEntity serviceDetails) {
+        ServiceEntity service = serviceRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Service not found with id " + id));
 
-    service.setCategory(serviceDetails.getCategory());
-    service.setTitle(serviceDetails.getTitle());
-    service.setDescription(serviceDetails.getDescription());
-    service.setIcon(serviceDetails.getIcon());
+        service.setCategory(serviceDetails.getCategory());
+        service.setTitle(serviceDetails.getTitle());
+        service.setDescription(serviceDetails.getDescription());
+        service.setIcon(serviceDetails.getIcon());
 
-    return serviceRepository.save(service);
-}
+        return serviceRepository.save(service);
+    }
 
     @DeleteMapping("/{id}")
     public String deleteService(@PathVariable Long id) {
